@@ -2,31 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events</title>
 </head>
 
 <body>
-    <main>
-        <table class="table table-striped table-hover table-bordered border-primary align-middle text-center text-capitalize">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-              </tr>
-              
-            </thead>
-            <tbody class="table-group-devider">
-                
-            </tbody>
-          </table>
-    </main>
- 
 
-    <script type="module" src="./src/js/main.js"></script>
+  <main class="container my-3">
+    <form action="./index.html"  id="form" method="post" class="next-validation" novalidate>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name(s)" required>
+        <label for="name">Name(s)</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Last name(s)" required>
+        <label for="last-name">Last Name</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email"  placeholder="email" required>
+        <label for="email">Email</label>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" id="btn-save" class="btn btn-success">Save</button>
+        <button type="reset" id="btn-save" class="btn btn-success">Cancel</button> <!--me limpia los campos de un formulario-->
+      </div>
+
+    </form>
+
+    <table
+      class="table table-striped table-hover table-bordered border-primary align-middle text-center text-capitalize">
+      <caption class="caption-top">List of coders</caption>
+      <thead></thead>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-devider">
+      </tbody>
+    </table>
+  </main>
+
+
+  <script type="module" src="./src/js/main.js"></script>
 </body>
 
 </html>
