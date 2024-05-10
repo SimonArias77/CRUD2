@@ -2,9 +2,12 @@
 import '../scss/styles.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
-import { coders } from './data.js';
-import { index,create } from './operations.js'
 
+import { coders } from './data.js';
+import { index, create } from './operations.js'
+import { showSmallAlertSuccess } from './alerts';
+
+const table = document.querySelector("table")
 const tbody = document.querySelector("tbody")
 const form = document.getElementById("form")
 const name = document.getElementById("name")
@@ -15,13 +18,33 @@ const btnSave = document.getElementById("btn-save")
 index(coders, tbody)
 
 form.addEventListener('submit', function (event) {
-    create(coders, name, lastName, email)
-    form.reset ()
-    event.preventDefault()
+    console.log("hoa");
+    if (form.checkValidity()) {
+        create(coders, name, lastName, email)
+        showSmallAlertSuccess("saved")
+    }
+
+    form.reset()
     index(coders, tbody)
+    event.preventDefault()
 })
 
-console.log(coders)
+table.addEventListener('click', function (event) {
+    if (event.target.classList.contains("btn-danger")) {
+        const idParaEliminar = event.target.getAttribute("data-id")
+
+        coders.forEach((coder, index) => {
+            if (coder.id == idParaEliminar) {
+                coders.splice(index, 1)
+            }
+        })
+        index(coders, tbody)
+        showSmallAlertSuccess("deleted")
+    }
+
+})
+
+
 
 // coders.forEach(coder => {
 //     if (coder.id == 2) {

@@ -11,7 +11,7 @@ export function index(coders, tbody) {
                     <button type="button" data-id="${coder.id}" class="btn btn-warning">details</button>
                     <button type="button" data-id="${coder.id}" class="btn btn-primary">edit</button>
                     <button type="button" data-id="${coder.id}" class="btn btn-danger">delete</button>
-                </td>
+                </td>    
             </tr>
         `
     });
