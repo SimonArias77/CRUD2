@@ -17,18 +17,23 @@ export function index(coders, tbody) {
     });
 }
 
-export function create(coders, name, lastName, email) {
+export function create(name,lastName,email,coders){
     const tempCoder = {
-        id: Date.now(),
+        id: Date.now(), //Fecha actual pero saca un id diferente por cada segundo
+        //id: coders.length + 1,
         name: name.value,
         lastName: lastName.value,
-        email: email.value
-    }
-    coders.push(tempCoder)
+        email: email.value,
+      };
+      coders.push(tempCoder)
 }
-
-
-
+export function deleteItem(coders, idToDelete) {
+    coders.forEach((coder, index) => {
+      if (coder.id == idToDelete) {
+        coders.splice(index, 1)
+      }
+    })
+  }
 
 
 

@@ -4,7 +4,7 @@ import '../scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 
 import { coders } from './data.js';
-import { index, create } from './operations.js'
+import { index, create, deleteItem } from './operations.js'
 import { showSmallAlertSuccess } from './alerts';
 
 const table = document.querySelector("table")
@@ -14,14 +14,26 @@ const name = document.getElementById("name")
 const lastName = document.getElementById("last-name")
 const email = document.getElementById("email")
 const btnSave = document.getElementById("btn-save")
+let idParaActualizar
+
 
 index(coders, tbody)
 
 form.addEventListener('submit', function (event) {
-    console.log("hoa");
-    if (form.checkValidity()) {
-        create(coders, name, lastName, email)
+    if (idParaActualizar === undefined) {
+        create(name, lastName, email, coders)
         showSmallAlertSuccess("saved")
+    } else {
+        for (const coder of coders) {
+            if (coder.id == idParaActualizar) {
+                coder.name = name.value
+                coder.lastName = lastName.value
+                coder.email = email.value
+            }
+        }
+
+        showSmallAlertSuccess("updated")
+        idParaActualizar = undefined
     }
 
     form.reset()
@@ -32,16 +44,31 @@ form.addEventListener('submit', function (event) {
 table.addEventListener('click', function (event) {
     if (event.target.classList.contains("btn-danger")) {
         const idParaEliminar = event.target.getAttribute("data-id")
-
-        coders.forEach((coder, index) => {
-            if (coder.id == idParaEliminar) {
-                coders.splice(index, 1)
-            }
-        })
+        deleteItem(coders, idParaEliminar)
+        showSmallAlertSuccess("coder deleted")
         index(coders, tbody)
-        showSmallAlertSuccess("deleted")
     }
 
+    if (event.target.classList.contains("btn-primary")) {
+        idParaActualizar = event.target.getAttribute("data-id")
+
+        // //vamos a buscar al usuario en la base de datos de manera empìrica
+
+        // const userFound = coders.find(coder => {
+        //     if (coder.id == idParaActualizar) {
+        //         return coder
+        //     }
+        // })
+
+
+        //vamos a buscar al usuario en la base de datos de manera declarativa
+        const userFound2 = coders.find(coder => coder.id == idParaActualizar)
+
+        //pintar los datos nuevamente en el formulario
+        name.value = userFound2.name
+        lastName.value = userFound2.lastName
+        email.value = userFound2.email
+    }
 })
 
 
